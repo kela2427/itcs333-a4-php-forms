@@ -38,11 +38,36 @@ $success = isset($_GET['success']);
 </head>
 <body>
   <h1>Contact Us</h1>
-  <!-- TODO: render the form, inline errors, and repopulated values -->
-  <form method="post" action="index.php">
-    <label>Name <input type="text" name="name"></label><br>
-    <label>Email <input type="email" name="email"></label><br>
-    <label>Message <textarea name="message"></textarea></label><br>
+
+  <?php if ($success): ?>
+    <p>Thank you! Your message has been sent.</p>
+  <?php endif; ?>
+
+  <form method="post" action="index.php" novalidate>
+    <label>Name
+      <input type="text" name="name" value="<?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>">
+    </label>
+    <?php if (isset($errors['name'])): ?>
+      <span style="color:red"><?= htmlspecialchars($errors['name'], ENT_QUOTES, 'UTF-8') ?></span>
+    <?php endif; ?>
+    <br>
+
+    <label>Email
+      <input type="email" name="email" value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>">
+    </label>
+    <?php if (isset($errors['email'])): ?>
+      <span style="color:red"><?= htmlspecialchars($errors['email'], ENT_QUOTES, 'UTF-8') ?></span>
+    <?php endif; ?>
+    <br>
+
+    <label>Message
+      <textarea name="message"><?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?></textarea>
+    </label>
+    <?php if (isset($errors['message'])): ?>
+      <span style="color:red"><?= htmlspecialchars($errors['message'], ENT_QUOTES, 'UTF-8') ?></span>
+    <?php endif; ?>
+    <br>
+
     <button type="submit">Send</button>
   </form>
 </body>
